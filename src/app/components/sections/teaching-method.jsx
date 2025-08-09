@@ -12,6 +12,9 @@ const TeachingMethod = () => {
   const secondSectionInView = useInView(secondSectionRef, {
     triggerOnce: false,
   });
+  const thirdSectionRef = useRef(null);
+const thirdSectionInView = useInView(thirdSectionRef, { triggerOnce: false });
+
 
   const guaranteeRef = useRef(null);
   const guaranteeInView = useInView(guaranteeRef, { triggerOnce: false });
@@ -128,16 +131,17 @@ const TeachingMethod = () => {
         </div>
 
         {/* 3rd section */}
-         <div
-          ref={firstSectionRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-between"
-        >
+        <div
+  ref={thirdSectionRef}
+  className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-between mt-16"
+>
+
           {/* Left Section - Our Teaching Method */}
           <motion.div
             className="space-y-6"
             variants={rightToLeftVariant}
             initial="hidden"
-            animate={firstSectionInView ? "visible" : "hidden"}
+            animate={thirdSectionInView ? "visible" : "hidden"}
           >
             {/* <h2 className="text-2xl sm:text-4xl font-bold text-primary">
               Projects You Will Build
@@ -160,7 +164,7 @@ const TeachingMethod = () => {
             className="flex justify-center md:justify-end"
             variants={leftToRightVariant}
             initial="hidden"
-            animate={firstSectionInView ? "visible" : "hidden"}
+            animate={thirdSectionInView ? "visible" : "hidden"}
           >
             <Image
               src="/seo.png"
@@ -173,7 +177,7 @@ const TeachingMethod = () => {
         </div>
 
         {/* Money Back Guarantee Section */}
-        <motion.div
+        {/* <motion.div
           ref={guaranteeRef}
           className="mt-16 bg-primary text-white rounded-[23px] p-8 relative"
           variants={rightToLeftVariant}
@@ -195,10 +199,7 @@ const TeachingMethod = () => {
               You continue with your application process as set by our team.
             </li>
           </ul>
-          {/* <p className="pt-[12px] text-[16px] sm:text-[#FFFFFFCC]">
-            *If you follow those steps above, but still don&apos;t get a tech
-            job, you get a full-refund!
-          </p> */}
+          
           <Image
             src="/Rectangle.svg"
             alt="rectangle"
@@ -206,7 +207,7 @@ const TeachingMethod = () => {
             height={300}
             className="hidden sm:block absolute bottom-0 right-0 object-contain"
           />
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
