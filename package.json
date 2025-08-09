@@ -8,7 +8,10 @@
     "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npm install --legacy-peer-deps && npm run build"
+    "deploy": "npm install --legacy-peer-deps && npm run build",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -18,6 +21,7 @@
     "@prisma/client": "^5.21.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@stripe/stripe-js": "^2.4.0",
     "@studio-freight/lenis": "^1.0.42",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -39,6 +43,7 @@
     "react-leaflet": "^4.2.1",
     "react-simple-typewriter": "^5.0.1",
     "react-stacked-center-carousel": "^1.0.14",
+    "stripe": "^14.12.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.4"
