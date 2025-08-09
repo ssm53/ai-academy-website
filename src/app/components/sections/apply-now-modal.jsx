@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import CheckoutButton from "../stripe/checkout-button";
 
 export default function ApplyNowModal({ open, onClose }) {
   const backdropRef = useRef(null);
@@ -41,7 +42,13 @@ export default function ApplyNowModal({ open, onClose }) {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.firstName || !form.lastName || !form.email || !form.institution || !form.reason) {
+    if (
+      !form.firstName ||
+      !form.lastName ||
+      !form.email ||
+      !form.institution ||
+      !form.reason
+    ) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -101,14 +108,17 @@ export default function ApplyNowModal({ open, onClose }) {
             {/* CONTENT: form or success */}
             {status !== "success" ? (
               <>
-                <h2 className="text-2xl font-bold mb-4">Apply Now</h2>
+                <h2 className="text-2xl font-bold mb-4">Apply & Enroll Now</h2>
+                <p className="text-gray-600 mb-6">
+                  Fill in your details and proceed to secure payment
+                </p>
 
-                <form onSubmit={onSubmit} className="space-y-3">
+                <form onSubmit={onSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input
                       name="firstName"
                       placeholder="First name *"
-                      className="w-full p-3 border rounded-lg"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       value={form.firstName}
                       onChange={onChange}
                       required
@@ -116,7 +126,7 @@ export default function ApplyNowModal({ open, onClose }) {
                     <input
                       name="lastName"
                       placeholder="Last name *"
-                      className="w-full p-3 border rounded-lg"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       value={form.lastName}
                       onChange={onChange}
                       required
@@ -127,7 +137,7 @@ export default function ApplyNowModal({ open, onClose }) {
                     type="email"
                     name="email"
                     placeholder="Email *"
-                    className="w-full p-3 border rounded-lg"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     value={form.email}
                     onChange={onChange}
                     required
@@ -135,17 +145,16 @@ export default function ApplyNowModal({ open, onClose }) {
 
                   <input
                     name="whatsapp"
-                    placeholder="WhatsApp"
-                    className="w-full p-3 border rounded-lg"
+                    placeholder="WhatsApp number (optional)"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     value={form.whatsapp}
                     onChange={onChange}
-                    required
                   />
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <select
                       name="study"
-                      className="w-full p-3 border rounded-lg"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       value={form.study}
                       onChange={onChange}
                     >
@@ -156,7 +165,7 @@ export default function ApplyNowModal({ open, onClose }) {
                     <input
                       name="institution"
                       placeholder="College/University name *"
-                      className="w-full p-3 border rounded-lg"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       value={form.institution}
                       onChange={onChange}
                       required
@@ -165,20 +174,45 @@ export default function ApplyNowModal({ open, onClose }) {
 
                   <textarea
                     name="reason"
-                    placeholder="Why do you want to join? *"
-                    className="w-full p-3 border rounded-lg"
+                    placeholder="Why do you want to join our bootcamp? *"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent h-24 resize-none"
                     value={form.reason}
                     onChange={onChange}
                     required
                   />
 
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 disabled:opacity-60"
-                    disabled={status === "loading"}
-                  >
-                    {status === "loading" ? "Submitting…" : "Submit Application"}
-                  </button>
+                  <div className="space-y-4">
+                    <button
+                      type="submit"
+                      className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 disabled:opacity-60 transition-colors"
+                      disabled={status === "loading"}
+                    >
+                      {status === "loading"
+                        ? "Submitting Application..."
+                        : "Submit Application"}
+                    </button>
+
+                    {status === "idle" &&
+                      form.firstName &&
+                      form.lastName &&
+                      form.email &&
+                      form.institution &&
+                      form.reason && (
+                        <div className="border-t pt-4">
+                          <p className="text-sm text-gray-600 mb-3 text-center">
+                            Ready to enroll? Pay securely with Stripe:
+                          </p>
+                          <CheckoutButton
+                            fullName={`${form.firstName} ${form.lastName}`}
+                            email={form.email}
+                            whatsapp={form.whatsapp}
+                            amount={1000}
+                          >
+                            Enroll Now
+                          </CheckoutButton>
+                        </div>
+                      )}
+                  </div>
                 </form>
               </>
             ) : (
@@ -187,11 +221,32 @@ export default function ApplyNowModal({ open, onClose }) {
                 <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
                   <span className="text-green-600 text-2xl">✓</span>
                 </div>
-                <h2 className="text-2xl font-bold mb-2">Application received</h2>
-                <p className="text-gray-700">
-                  We will contact you for an interview.
+                <h2 className="text-2xl font-bold mb-2">
+                  Application Submitted!
+                </h2>
+                <p className="text-gray-700 mb-4">
+                  Thank you for your application. We&apos;ll review it and
+                  contact you soon for the next steps.
                 </p>
-                <p className="text-gray-500 mt-2 text-sm">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                  <p className="text-blue-800 font-medium">
+                    Want to secure your spot?
+                  </p>
+                  <p className="text-blue-600 text-sm mb-3">
+                    Complete your enrollment with payment to guarantee your
+                    place in the next cohort.
+                  </p>
+                  <CheckoutButton
+                    fullName={`${form.firstName} ${form.lastName}`}
+                    email={form.email}
+                    whatsapp={form.whatsapp}
+                    amount={1000}
+                    className="text-sm py-2"
+                  >
+                    Complete Enrollment
+                  </CheckoutButton>
+                </div>
+                <p className="text-gray-500 text-sm">
                   You can close this window using the <strong>×</strong> button.
                 </p>
               </div>
