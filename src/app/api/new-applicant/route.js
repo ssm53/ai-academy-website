@@ -1,131 +1,131 @@
-// import { NextResponse } from "next/server";
-// import { PrismaClient } from "@prisma/client";
-
-// const prisma = new PrismaClient();
-
-// export async function POST(req) {
-//   try {
-//     // Parse the incoming request data
-//     const body = await req.json();
-
-//     // Destructure the data from the body
-//     const {
-//       fullname,
-//       email,
-//       whatsapp,
-//       reason,
-//       codingexperience,
-//       stageofcareer,
-//       fullorpart,
-//       remoteoronsite,
-//     } = body;
-
-//     // Create a new applicant in the database
-//     const newApplicant = await prisma.applicant.create({
-//       data: {
-//         fullname,
-//         email,
-//         whatsapp,
-//         reason,
-//         codingexperience,
-//         stageofcareer,
-//         fullorpart,
-//         remoteoronsite,
-//       },
-//     });
-
-//     // Return a success response with the created applicant
-//     return NextResponse.json({ applicant: newApplicant }, { status: 201 });
-//   } catch (error) {
-//     console.error("Error creating applicant:", error);
-//     return NextResponse.json(
-//       { error: "Failed to create applicant" },
-//       { status: 500 }
-//     );
-//   }
-// }
-
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import nodemailer from "nodemailer";
 
-const prisma = new PrismaClient();
+// --- Prisma (reuse client in dev to avoid too many connections) ---
+const prisma = globalThis._prisma || new PrismaClient();
+if (process.env.NODE_ENV !== "production") globalThis._prisma = prisma;
+
+// --- Nodemailer transporter (built once, reused) ---
+let transporterPromise;
+function getTransporter() {
+  if (!transporterPromise) {
+    transporterPromise = (async () => {
+      const host = process.env.SMTP_HOST;
+      const port = Number(process.env.SMTP_PORT || 465);
+      const user = process.env.SMTP_USER;
+      const pass = process.env.SMTP_PASS;
+
+      if (!host || !user || !pass) {
+        console.warn("[new-applicant] SMTP not configured; emails disabled.");
+        return null;
+      }
+
+      return nodemailer.createTransport({
+        host,
+        port,
+        secure: port === 465, // 465=true, 587=false
+        auth: { user, pass },
+      });
+    })();
+  }
+  return transporterPromise;
+}
 
 export async function POST(req) {
   try {
-    // Parse the incoming request data
     const body = await req.json();
+    const { fullname, email, whatsapp, reason, study, institution } = body || {};
 
-    // Destructure the data from the body
-    const {
-      fullname,
-      email,
-      whatsapp,
-      reason,
-      codingexperience,
-      stageofcareer,
-      fullorpart,
-      remoteoronsite,
-    } = body;
+    // Minimal validation
+    if (!fullname || !email || !institution || !reason) {
+      return NextResponse.json(
+        { error: "Missing required fields (fullname, email, institution, reason)" },
+        { status: 400 }
+      );
+    }
 
-    // Create a new applicant in the database
-    const newApplicant = await prisma.applicant.create({
+    // 1) Write to DB
+    const created = await prisma.applicant.create({
       data: {
-        fullname,
+        fullName: fullname,
         email,
-        whatsapp,
-        reason,
-        codingexperience,
-        stageofcareer,
-        fullorpart,
-        remoteoronsite,
+        whatsapp: whatsapp ?? null,
+        study: study ?? null,
+        institution: institution ?? null,
+        reason: reason ?? null,
       },
+      select: { id: true, fullName: true, email: true, study: true, institution: true, reason: true },
     });
 
-    // Send an email notification to yourself
-    await sendEmailNotification(newApplicant);
+    // 2) Send notification email (best-effort)
+    try {
+      const transporter = await getTransporter();
+      if (transporter) {
+        const to = process.env.NOTIFY_TO || process.env.SMTP_USER;
+        const from = process.env.SMTP_FROM || process.env.SMTP_USER;
+        const subject = `New Applicant: ${created.fullName} (#${created.id})`;
 
-    // Return a success response with the created applicant
-    return NextResponse.json({ applicant: newApplicant }, { status: 201 });
-  } catch (error) {
-    console.error("Error creating applicant:", error);
-    return NextResponse.json(
-      { error: "Failed to create applicant" },
-      { status: 500 }
-    );
+        const text = [
+          `A new application was submitted:`,
+          ``,
+          `Name: ${created.fullName}`,
+          `Email: ${created.email}`,
+          `WhatsApp: ${whatsapp || "-"}`,
+          `Study: ${created.study || "-"}`,
+          `Institution: ${created.institution || "-"}`,
+          `Reason: ${created.reason || "-"}`,
+          `Applicant ID: ${created.id}`,
+        ].join("\n");
+
+        const html = `
+          <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5">
+            <h2>New Applicant</h2>
+            <table cellpadding="6" style="border-collapse:collapse">
+              <tr><td><strong>Name</strong></td><td>${escapeHtml(created.fullName || "")}</td></tr>
+              <tr><td><strong>Email</strong></td><td>${escapeHtml(created.email || "")}</td></tr>
+              <tr><td><strong>WhatsApp</strong></td><td>${escapeHtml(whatsapp || "-")}</td></tr>
+              <tr><td><strong>Study</strong></td><td>${escapeHtml(created.study || "-")}</td></tr>
+              <tr><td><strong>Institution</strong></td><td>${escapeHtml(created.institution || "-")}</td></tr>
+              <tr><td><strong>Reason</strong></td><td>${escapeHtml(created.reason || "-")}</td></tr>
+              <tr><td><strong>Applicant ID</strong></td><td>${created.id}</td></tr>
+            </table>
+          </div>
+        `;
+
+        await transporter.sendMail({ from, to, subject, text, html });
+      }
+    } catch (mailErr) {
+      console.error("[new-applicant] Email send error:", mailErr);
+      // Don’t fail the request if email fails
+    }
+
+    return NextResponse.json({ ok: true, id: created.id }, { status: 201 });
+  } catch (err) {
+    console.error("new-applicant POST error:", err);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
-// Function to send an email notification using Nodemailer
-async function sendEmailNotification(applicant) {
-  // Create a transporter for Gmail
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS,
-    },
-  });
+export async function GET() {
+  try {
+    const latest = await prisma.applicant.findMany({
+      orderBy: { id: "desc" },
+      take: 10,
+      select: { id: true, fullName: true, email: true, study: true, institution: true },
+    });
+    return NextResponse.json({ data: latest });
+  } catch (err) {
+    console.error("new-applicant GET error:", err);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
 
-  // Set up email options
-  const mailOptions = {
-    from: process.env.GMAIL_USER,
-    to: process.env.GMAIL_USER,
-    subject: "New Bootcamp Application Received",
-    text: `A new student has applied for the bootcamp.
-
-Name: ${applicant.fullname}
-Email: ${applicant.email}
-Whatsapp: ${applicant.whatsapp}
-Reason: ${applicant.reason}
-Coding Experience: ${applicant.codingexperience}
-Stage of Career: ${applicant.stageofcareer}
-Schedule: ${applicant.fullorpart}
-Location Preference: ${applicant.remoteoronsite}
-
-Please review the application in the database.`,
-  };
-
-  // Send the email
-  await transporter.sendMail(mailOptions);
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }

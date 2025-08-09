@@ -15,12 +15,10 @@ datasource db {
 
 model Applicant {
   id               Int     @id @default(autoincrement())
-  fullname         String?
-  email            String
-  whatsapp         String?
-  reason           String?
-  codingexperience String?
-  stageofcareer    String?
-  fullorpart       String?
-  remoteoronsite   String?
+  fullName         String?
+  whatsapp String?           
+  email         String?
+  study           String?
+  institution String?
+  reason    String?
 }

@@ -6,8 +6,9 @@
       "port": 5443,
       "driver": "PostgreSQL",
       "name": "final-bootcamp-website",
-      "database": "final-bootcamp-website-db",
-      "username": "final-bootcamp-website"
+      "database": "zez-academy",
+      "username": "zez",
+      "password": "zez"
     }
   ]
 }

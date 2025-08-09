@@ -1,15 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Import Image from next/image
-import { FiMenu } from "react-icons/fi"; // Hamburger icon
-import { FaLinkedin, FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa"; // Social Icons
-import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { FiMenu } from "react-icons/fi";
+import ApplyNowModal from "../sections/apply-now-modal"; // <-- reuse the same modal
 
 // Hook to detect screen size
 const useMediaQuery = (width) => {
   const [isScreenSize, setIsScreenSize] = useState(false);
-
   useEffect(() => {
     const updateScreenSize = () => {
       setIsScreenSize(window.innerWidth >= width);
@@ -18,12 +16,9 @@ const useMediaQuery = (width) => {
     window.addEventListener("resize", updateScreenSize);
     return () => window.removeEventListener("resize", updateScreenSize);
   }, [width]);
-
   return isScreenSize;
 };
-//
 
-// Move handleOutsideClick outside to prevent redefinition on each render
 const handleOutsideClick = (e, setIsOpen) => {
   if (!e.target.closest(".drawer-content")) {
     setIsOpen(false);
@@ -32,16 +27,12 @@ const handleOutsideClick = (e, setIsOpen) => {
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false); // New hydration flag
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [openApply, setOpenApply] = useState(false); // modal state
   const isDesktop = useMediaQuery(1024);
-  const [showPopup, setShowPopup] = useState(false);
-
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
-  };
 
   useEffect(() => {
-    setIsHydrated(true); // Set hydrated to true once the client-side is loaded
+    setIsHydrated(true);
   }, []);
 
   const toggleDrawer = () => {
@@ -56,42 +47,29 @@ const Header = () => {
     }
   }, [isOpen]);
 
-  if (!isHydrated) {
-    return null;
-  }
+  if (!isHydrated) return null;
 
   return (
     <div className="relative border-b border-[#243548]">
-      <nav className="bg-primary  fixed top-0 w-full z-10">
+      <nav className="bg-primary fixed top-0 w-full z-10">
         <div className="max-w-[1300px] h-[80px] flex flex-wrap items-center justify-between mx-auto p-6 lg:p-0">
           <Link href="/" passHref>
-            <h1
-              id="home"
-              className="text-3xl md:text-4xl font-bold text-white text-center md:text-left"
-            >
-              <span className="text-secondary">Zez</span>{" "}
-              <span className="text-white">Academy</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
+              <span className="text-secondary">Zez</span> Academy
             </h1>
           </Link>
 
           <div className="flex items-center space-x-3">
-            {/* <button
-              onClick={togglePopup}
+            {/* Apply Now button for desktop */}
+            <button
+              onClick={() => setOpenApply(true)}
               type="button"
               className="text-[#FFFFFF] bg-secondary focus:ring-4 font-medium rounded-[3px] text-sm px-4 py-2 text-center hidden md:block"
             >
               Apply Now
-            </button> */}
-            <a
-              href="/apply-now"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#FFFFFF] bg-secondary focus:ring-4 font-medium rounded-[3px] text-sm px-4 py-2 text-center hidden md:block"
-            >
-              Apply Now
-            </a>
+            </button>
 
-            {/* Custom Drawer Trigger - Hamburger Icon */}
+            {/* Hamburger Icon */}
             <button
               type="button"
               onClick={toggleDrawer}
@@ -100,15 +78,15 @@ const Header = () => {
               <FiMenu className="w-6 h-6" aria-hidden="true" />
             </button>
 
-            {/* Backdrop Effect */}
+            {/* Backdrop */}
             <div
               className={`fixed inset-0 bg-black bg-opacity-50 z-10 transition-opacity duration-300 ${
                 isOpen ? "opacity-100 visible" : "opacity-0 invisible"
               }`}
-              onClick={toggleDrawer} // Close drawer when clicking on backdrop
+              onClick={toggleDrawer}
             />
 
-            {/* Custom Drawer Component */}
+            {/* Drawer */}
             <div
               className={`fixed ${
                 isDesktop ? "right-0 top-0" : "bottom-0 left-0"
@@ -138,7 +116,7 @@ const Header = () => {
                 &times;
               </button>
 
-              {/* Drawer Links with Arrow SVG */}
+              {/* Drawer Links */}
               <div className="p-8 mt-12">
                 <ul
                   className={`flex flex-col ${
@@ -147,18 +125,15 @@ const Header = () => {
                 >
                   {[
                     "Home",
-                    // "Free Materials",
                     "Our Founder",
                     "Our Classes",
                     "Contact Us",
                     "Zez Academy vs University",
                     "Fixed vs Flexible Option",
                     "Why Us",
-                    // "Our Teaching Methods",
                     "Admission Requirements",
                     "How to Get Started",
                     "Pricing",
-                    // "Our Students",
                     "FAQs",
                   ].map((link, index) => (
                     <li key={index} className="border-b border-gray-200 pb-3">
@@ -169,276 +144,38 @@ const Header = () => {
                         <span className="flex justify-between items-center text-gray-800 hover:text-secondary">
                           {link}
                           <Image
-                            src="/arrrow.svg" // Arrow SVG in the public folder
+                            src="/arrrow.svg"
                             alt="arrow"
                             width={20}
-                            height={20} // Replaced <img> with <Image /> component
+                            height={20}
                           />
                         </span>
                       </Link>
                     </li>
                   ))}
+
+                  {/* Apply Now inside Drawer */}
+                  <li className="pt-4">
+                    <button
+                      onClick={() => {
+                        toggleDrawer();
+                        setOpenApply(true);
+                      }}
+                      type="button"
+                      className="w-full bg-secondary text-white py-2 px-4 rounded-md"
+                    >
+                      Apply Now
+                    </button>
+                  </li>
                 </ul>
               </div>
-
-              {/* Drawer Footer - Always visible on desktop and mobile */}
-              {/* <div className="absolute bottom-8 left-8 right-8 border-t border-gray-200 pt-4 flex justify-between items-center"> */}
-              {/* <p className="text-sm text-gray-500">
-                  © 2024 Zez Academy. All Rights Reserved.
-                </p> */}
-
-              {/* Social Icons - Bottom Right */}
-              {/* <div className="flex space-x-4">
-                  <Link href="https://www.linkedin.com/in/shaun-shanil-menezes/">
-                    <FaLinkedin className="w-6 h-6 text-gray-800 hover:text-secondary" />
-                  </Link>
-                  <Link href="https://twitter.com">
-                    <FaTwitter className="w-6 h-6 text-gray-800 hover:text-secondary" />
-                  </Link>
-                  <Link href="https://youtube.com">
-                    <FaYoutube className="w-6 h-6 text-gray-800 hover:text-secondary" />
-                  </Link>
-                  <Link href="https://www.instagram.com/zezacademy/">
-                    <FaInstagram className="w-6 h-6 text-gray-800 hover:text-secondary" />
-                  </Link>
-                </div> */}
-              {/* </div> */}
             </div>
           </div>
         </div>
       </nav>
-      <AnimatePresence>
-        {showPopup && <Popup togglePopup={togglePopup} />}
-      </AnimatePresence>
-    </div>
-  );
-};
 
-const Popup = ({ togglePopup }) => {
-  // const router = useRouter();
-
-  const modalVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
-  };
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
-
-  const [formData, setFormData] = useState({
-    fullname: "",
-    email: "",
-    whatsapp: "",
-    reason: "",
-    codingexperience: "I have not written a single line of code",
-    stageofcareer: "I am still in school/college/university",
-    fullorpart: "Self-Paced",
-    remoteoronsite: "Remote",
-  });
-  const [thankYouMessage, setThankYouMessage] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Make sure all required fields are filled
-    if (
-      formData.fullname &&
-      formData.email &&
-      formData.whatsapp &&
-      formData.reason
-    ) {
-      try {
-        const response = await fetch("/api/new-applicant", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-          // Set the thank-you message
-          setThankYouMessage(
-            "Thanks for your application. We will notify you within 5 days if you made it to the next stage."
-          );
-        } else {
-          alert("Error submitting the form. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Error submitting the form. Please try again.");
-      }
-    } else {
-      alert("Please fill in all fields.");
-    }
-  };
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({ ...prevData, [name]: value }));
-  // };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-md">
-      <motion.div
-        className="bg-white rounded-lg p-6 w-full max-w-md md:max-w-4xl relative mx-4 md:mx-auto"
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        variants={modalVariants}
-      >
-        <button
-          className="absolute top-3 right-3 text-black font-bold text-2xl"
-          onClick={togglePopup}
-        >
-          &times;
-        </button>
-
-        <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 p-6 bg-gray-100 rounded-l-lg">
-            <h2 className="text-2xl font-bold mb-6">We win only if you win</h2>
-            {/* <ul className="list-disc list-inside space-y-4 text-gray-700">
-              <li>
-                <strong>Job Guarantee</strong> or you get your money-back
-              </li>
-              <li>
-                <strong>Engaging Video Tutorials:</strong> Easy-to-follow
-                explainer videos that make coding fun and accessible. Perfect
-                for beginners!
-              </li>
-              <li>
-                <strong>Supportive Learning Community:</strong> Connect with
-                peers, join discussions, and learn together with like-minded
-                individuals.
-              </li>
-            </ul> */}
-          </div>
-
-          <div className="md:w-1/2 p-6 bg-white rounded-r-lg">
-            <h2 className="text-2xl font-bold mb-6">
-              Start your coding journey
-            </h2>
-            {thankYouMessage !== "" ? (
-              <div className="p-4 text-center">
-                <p>{thankYouMessage}</p>
-                {/* <button 
-      onClick={() => {
-        setThankYouMessage(""); // Reset the message when closing
-        // Close the modal here if you have a modal close handler
-      }} 
-      className="mt-4 bg-blue-600 text-white p-2 rounded-lg"
-    >
-      Close
-    </button> */}
-              </div>
-            ) : (
-              <form className="space-y-4" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="fullname"
-                  placeholder="Full Name"
-                  className="p-3 border rounded-lg w-full"
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your email"
-                  className="w-full p-3 border rounded-lg"
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="whatsapp"
-                  placeholder="Whatsapp Number"
-                  className="w-full p-3 border rounded-lg"
-                  onChange={handleChange}
-                  required
-                />
-                <textarea
-                  name="reason"
-                  placeholder="Why do you want to learn to code?"
-                  className="w-full p-3 border rounded-lg"
-                  onChange={handleChange}
-                  required
-                />
-                <select
-                  name="codingexperience"
-                  className="w-full p-3 border rounded-lg"
-                  onChange={handleChange}
-                >
-                  <option value="I have not written a single line of code">
-                    I have not written a single line of code
-                  </option>
-                  <option value="I have done a little bit of coding (Youtube videos/short online course)">
-                    I have done a little bit of coding (Youtube videos/short
-                    online course)
-                  </option>
-                </select>
-                <select
-                  name="stageofcareer"
-                  className="w-full p-3 border rounded-lg"
-                  onChange={handleChange}
-                >
-                  <option value="I am still in school/college/university">
-                    I am still in school/college/university
-                  </option>
-                  <option value="I have been working for 1-3 years already">
-                    I have been working for 1-3 years already
-                  </option>
-                  <option value="I have been working for 4-10 years already">
-                    I have been working for 4-10 years already
-                  </option>
-                  <option value="I have been working for more than 10 years already">
-                    I have been working for more than 10 years already
-                  </option>
-                  <option value="I am an entrepreneur">
-                    I am an entrepreneur
-                  </option>
-                  <option value="I am currently unemployed">
-                    I am currently unemployed
-                  </option>
-                </select>
-                <select
-                  name="fullorpart"
-                  className="w-full p-3 border rounded-lg"
-                  onChange={handleChange}
-                >
-                  <option value="Self-Paced">Self-Paced</option>
-                  <option value="Full-Time">Full-Time</option>
-                  <option value="I am not sure yet">I am not sure yet</option>
-                </select>
-                <select
-                  name="remoteoronsite"
-                  className="w-full p-3 border rounded-lg"
-                  onChange={handleChange}
-                >
-                  <option value="Remote">Remote</option>
-                  <option value="On-site">On-site</option>
-                  <option value="I am not sure yet">I am not sure yet</option>
-                </select>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700"
-                >
-                  Apply Now
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      </motion.div>
+      {/* Reusable Modal */}
+      <ApplyNowModal open={openApply} onClose={() => setOpenApply(false)} />
     </div>
   );
 };
