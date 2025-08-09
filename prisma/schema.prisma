@@ -21,4 +21,31 @@ model Applicant {
   study           String?
   institution String?
   reason    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  enrollments      Enrollment[]
+}
+
+model Enrollment {
+  id                String   @id @default(cuid())
+  applicantId       Int?
+  applicant         Applicant? @relation(fields: [applicantId], references: [id])
+  fullName          String
+  email             String
+  whatsapp          String?
+  stripeSessionId   String?  @unique
+  stripePaymentId   String?  @unique
+  paymentStatus     PaymentStatus @default(PENDING)
+  amount            Int      // Amount in cents (e.g., 100000 for RM 1000)
+  currency          String   @default("myr")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
 }

@@ -17,6 +17,7 @@ import TeachingMethod from "./components/sections/teaching-method";
 import Testimonials from "./components/sections/testimonials";
 import WhatLearn from "./components/sections/what-learn";
 import WhyChoose from "./components/sections/why-choose";
+import StructuredData from "./components/seo/structured-data";
 import dynamic from "next/dynamic";
 
 const Header = dynamic(() => import("./components/layout/header"), {
@@ -26,24 +27,27 @@ const Header = dynamic(() => import("./components/layout/header"), {
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <Header />
-      <Hero />
-      <BootcampSection />
-      <OurFounder />
-      <OurCohorts />
-      {/* <InfoSection /> */}
-      {/* <SixHundred /> */}
-      {/* <WhyChoose /> */}
-      <TeachingMethod />
-      <HandsOnLearning />
-      <WhatLearn />
-      <GetStarted />
-      {/* <PricingTable /> */}
-      {/* <CurriculumTable /> */}
-      <ContactUs />
-      <Pricing />
-      {/* <Testimonials /> */}
-      <FaqAccordian />
+      <main>
+        <Hero />
+        <BootcampSection />
+        <OurFounder />
+        <OurCohorts />
+        {/* <InfoSection /> */}
+        {/* <SixHundred /> */}
+        {/* <WhyChoose /> */}
+        <TeachingMethod />
+        <HandsOnLearning />
+        <WhatLearn />
+        <GetStarted />
+        {/* <PricingTable /> */}
+        {/* <CurriculumTable /> */}
+        <ContactUs />
+        <Pricing />
+        {/* <Testimonials /> */}
+        <FaqAccordian />
+      </main>
       <Footer />
     </>
   );
