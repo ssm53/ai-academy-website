@@ -4,11 +4,34 @@ import Image from "next/image";
 import LowerHeader from "../components/layout/enrollement-header";
 import CurriculumTable from "../components/sections/curriculum-table";
 import WatchMore from "../components/sections/watch-more";
+import CheckoutButton from "@/components/checkout/CheckoutButton";
 
 const EnrollmentSection = () => {
   const [selectedTuitionOption, setSelectedTuitionOption] =
     useState("Up-Front");
   const [selectedMBGOption, setSelectedMBGOption] = useState("MBG");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  // Calculate price based on selection
+  const getPrice = () => {
+    let basePrice = 12432; // RM 12,432
+    
+    if (selectedTuitionOption === "3  Installment") {
+      basePrice = Math.ceil(basePrice / 3);
+    } else if (selectedTuitionOption === "12  Installment") {
+      basePrice = Math.ceil(basePrice / 12);
+    }
+    
+    return basePrice;
+  };
+
+  const handleCheckout = () => {
+    if (!agreedToTerms) {
+      alert("Please agree to the Terms & Conditions first.");
+      return;
+    }
+    // Checkout will be handled by the CheckoutButton component
+  };
 
   return (
     <div id="get-free-access" className="bg-primary min-h-screen">
@@ -17,10 +40,8 @@ const EnrollmentSection = () => {
         {/* Header */}
         <div className="text-center">
           <h1 className="sm:mx-0 mx-1 text-[23px] sm:text-[2.5rem] leading-[1.5rem] sm:leading-10 font-bold text-white">
-            Let’s Get Started.
-            <span className="text-secondary"> We Don’t Get</span>
-            <br />
-            Paid If You Don’t Get A Job
+            Let&apos;s Get Started.<span className="text-secondary"> We Don&apos;t Get</span>
+            <br/>Paid If You Don&apos;t Get A Job
           </h1>
         </div>
 
@@ -72,7 +93,7 @@ const EnrollmentSection = () => {
                     className={`flex justify-center items-center  w-[129px] h-[44px] px-6 py-3 rounded-lg border-gray-500 border transition text-center whitespace-nowrap ${
                       selectedMBGOption === option
                         ? "bg-blue-600 text-white"
-                        : "bg-primary text-white"
+                        : "bg-transparent text-white border-gray-500"
                     }`}
                     onClick={() => setSelectedMBGOption(option)}
                   >
@@ -89,6 +110,7 @@ const EnrollmentSection = () => {
               <input
                 type="text"
                 className="w-full p-3 mt-2 rounded bg-[#8B8B8B40] text-white outline-none"
+                placeholder="Enter registration fee amount"
               />
             </div>
           </div>
@@ -105,14 +127,14 @@ const EnrollmentSection = () => {
             <div className="mt-8 flex space-x-2">
               <span>RM</span>
               <h2 className="sm:text-5xl text-[25px] font-bold text-primary">
-                12,432
+                {getPrice().toLocaleString()}
               </h2>
               <div className="">
                 <span className="block text-gray-500 sm:text-[16px] text-[13px]">
-                  USD 250
+                  {selectedTuitionOption === "Up-Front" ? "USD 250" : "Per Installment"}
                 </span>
                 <span className="block text-gray-500 sm:text-[16px] text-[13px]">
-                  Up-Front
+                  {selectedTuitionOption}
                 </span>
               </div>
             </div>
@@ -123,9 +145,9 @@ const EnrollmentSection = () => {
 
             <div className="mt-6 p-4 rounded-xl bg-[#F4F4F4]">
               <h3 className="text-lg font-semibold text-primary">
-                Visa / Credit Card
+                Secure Payment Methods
               </h3>
-              <div className="flex  space-x-4 mt-4">
+              <div className="flex space-x-4 mt-4">
                 <Image src="/visa.svg" alt="Visa" width={50} height={30} />
                 <Image
                   src="/mastercard.svg"
@@ -133,18 +155,21 @@ const EnrollmentSection = () => {
                   width={50}
                   height={30}
                 />
-                <Image
-                  src="/activedot.svg"
-                  alt="active"
-                  width={15}
-                  height={15}
-                />
+                <div className="flex items-center">
+                  <span className="text-sm text-gray-600 font-medium">FPX</span>
+                  <span className="text-xs text-gray-500 ml-1">(Malaysian Banks)</span>
+                </div>
               </div>
             </div>
 
             <div className="mt-8">
               <label className="flex items-center space-x-2">
-                <input type="checkbox" className="form-checkbox" />
+                <input 
+                  type="checkbox" 
+                  className="form-checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                />
                 <span className="text-[#4F5051] sm:text-2xl text-15px">
                   I have read and agreed to the{" "}
                   <a href="#" className="text-blue-400 underline">
@@ -154,9 +179,14 @@ const EnrollmentSection = () => {
               </label>
             </div>
 
-            <button className="mt-6 bg-blue-600 text-white w-full py-3 rounded-lg">
-              Pay Now
-            </button>
+            <div className="mt-6">
+              <CheckoutButton
+                amount={getPrice()}
+                courseName="Self Paced Bootcamp"
+                className="w-full py-3 text-lg"
+                disabled={!agreedToTerms}
+              />
+            </div>
           </div>
         </div>
       </div>

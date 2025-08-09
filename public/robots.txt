@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://zezacademy.com/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/
+
+# Allow important pages
+Allow: /enrollment
+Allow: /apply-now
+Allow: /payment-success
+
+# Crawl delay (optional)
+Crawl-delay: 1 
