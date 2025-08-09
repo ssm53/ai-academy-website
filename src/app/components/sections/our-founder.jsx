@@ -252,28 +252,22 @@ const OurFounder = () => {
             <span className="font-bold">Zez Academy</span>
           </p>
           <p className="mb-4 text-[#E9EAEB]">
-            Learning to code and being in tech industry sounds real nice BUT{" "}
+            I was an auditor at Deloitte, UK before learning tech and building AI systems{" "}
           </p>
           <ul className="mb-4 text-[#E9EAEB] list-disc pl-5">
-            <li>A degree or masters is too expensive and too long for most.</li>
+            <li>Co-founded a 7-figure crypto startup</li>
+            <li>Currently building AI automations for a VC backed Singapore start-up</li>
             <li>
-              Most proper coding programs are expensive (RM30,000 - RM120,000).
+              Built tech products for 40+ clients
             </li>
-            <li>
-              Most free tutorials don’t guide you when you are stuck, which will
-              cause you to give up.
-            </li>
-            <li>Most people can’t commit to learning code full-time.</li>
           </ul>
           <p className="mb-4 text-[#E9EAEB] underline font-bold text-lg">
-            My Aim
+            My Aim For You
           </p>
           <p className="mb-4 text-[#E9EAEB]">
-            Guarantee that you learn how to code, and get a tech job or
-            it&lsquo;s 100% free... without those annoying pain points above,
-            cause I&lsquo;ve gone through them myself, and it is not fun.
+            Actually learn and build AI systems that can impress people and make you stand out. This is done through live classes as learning solo is very difficult.
           </p>
-          {showFullText ? (
+          {/* {showFullText ? (
             <>
               <p className="mb-4 text-[#E9EAEB] underline font-bold text-lg">
                 My Story
@@ -334,7 +328,7 @@ const OurFounder = () => {
             >
               See My Story ▼
             </button>
-          )}
+          )} */}
         </motion.div>
       </div>
     </section>

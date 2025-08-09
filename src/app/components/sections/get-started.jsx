@@ -23,11 +23,11 @@ const GetStarted = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="text-center md:text-left">
             <h2 className="sm:text-4xl text-2xl font-bold text-primary">
-              How to Get Started?
+              Application Process
             </h2>
-            <p className="text-gray-600 mt-2">
+            {/* <p className="text-gray-600 mt-2">
               Start Your Coding Journey in 1 simple step
-            </p>
+            </p> */}
           </div>
           <div className="mt-4 md:mt-0">
             <a
@@ -56,19 +56,19 @@ const GetStarted = () => {
               </div>
             </div>
             <h4 className=" text-xl font-semibold text-gray-700">
-              Fill out the short application form{" "}
+              Fill out the application form{" "}
               <a
                 className="underline text-xl font-semibold text-gray-700"
                 href="/apply-now"
                 target="_blank"
               >
-                here
+                HERE
               </a>
             </h4>
-            <p className="text-gray-600">
+            {/* <p className="text-gray-600">
               It should take you less than 10 minutes. We will get back to you
               within 3 days if you qualify for the final interview
-            </p>
+            </p> */}
           </motion.div>
 
           <motion.div
@@ -82,8 +82,7 @@ const GetStarted = () => {
             </div>
             <h4 className=" text-xl font-semibold text-gray-700">Interview</h4>
             <p className="text-gray-600">
-              A 20-minute interview to understand your goals and ensure you are
-              a good fit for our bootcamp.
+              A 20-minute interview
             </p>
           </motion.div>
 
@@ -98,8 +97,7 @@ const GetStarted = () => {
             </div>
             <h4 className=" text-xl font-semibold text-gray-700">Acceptance</h4>
             <p className="text-gray-600">
-              If selected, sit back and relax as we onboard you. You will get
-              our free pre-bootcamp material.
+              3-5 days after interview
             </p>
           </motion.div>
         </motion.div>

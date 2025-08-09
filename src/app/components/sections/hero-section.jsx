@@ -508,7 +508,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { CardStackDemo } from "../card-stackdemo";
 import { useRouter } from "next/navigation";
-import Typical from "react-typical";
+// import Typical from "react-typical";
 const Hero = () => {
   const [showPopup, setShowPopup] = useState(false);
 
@@ -537,35 +537,35 @@ const Hero = () => {
       id="home"
       className="bg-[#0F243D] py-12 pb-16 px-6 w-auto sm:w-full sm:h-[50rem] h-auto flex items-center justify-center"
     >
-      <div className=" pt-[80px] w-full sm:max-w-[1300px] mx-auto flex flex-col items-center">
-        <motion.h1
-          className="text-2xl sm:text-6xl font-bold text-white text-center"
-          initial="hidden"
-          animate="visible"
-          variants={textVariants}
-        >
-          {/* For mobile - block layout */}
-          <span className="block md:hidden">
-            Become a{" "}
-            <span className="text-secondary whitespace-nowrap">
-              Full-Stack Developer
-            </span>
-          </span>
-          <span className="block md:hidden">in 4 months</span>
-          <span className="block md:hidden">
-            Get a tech job or its{" "}
-            <span className="text-secondary whitespace-nowrap">100% FREE</span>
-          </span>
-          {/* For desktop - inline layout */}
-          <span className="hidden md:inline">Become a</span>{" "}
-          <span className="hidden md:inline text-secondary">
-            Full-Stack Developer
-          </span>{" "}
-          <span className="hidden md:inline">in 4 months</span>{" "}
-          <br className="hidden md:block" />
-          <span className="hidden md:inline">Get a tech job or its</span>{" "}
-          <span className="hidden md:inline text-secondary">100% FREE</span>
-        </motion.h1>
+     <div className="pt-[40px] sm:pt-[60px] w-full sm:max-w-[1300px] mx-auto flex flex-col items-center">
+
+     <motion.h1
+  className="text-2xl sm:text-6xl font-bold text-white text-center"
+  initial="hidden"
+  animate="visible"
+  variants={textVariants}
+>
+  {/* New line - appears above main title on both mobile & desktop */}
+  <span className="block text-sm sm:text-xl font-medium text-blue-200 mb-2">
+    Only For Malaysian College &amp; Uni Students
+  </span>
+
+  {/* For mobile - block layout */}
+  <span className="block md:hidden">
+    Learn & Build{" "}
+    <span className="text-secondary whitespace-nowrap">
+      AI Systems in
+    </span>
+  </span>
+  <span className="block md:hidden">in 1 Month</span>
+
+  {/* For desktop - inline layout */}
+  <span className="hidden md:inline">Learn & Build</span>{" "}
+  <span className="hidden md:inline text-secondary">AI Systems</span>{" "}
+  <span className="hidden md:inline">in 1 Month</span>
+</motion.h1>
+
+
 
         <motion.div className="flex items-center mt-6 justify-center">
           <svg
@@ -612,7 +612,7 @@ const Hero = () => {
             animate="visible"
             variants={textVariants}
           >
-            Fully remote & no need to quit your job
+            4 Live Remote Classes a Week
           </motion.p>
         </motion.div>
         <motion.div className="flex items-center mt-6 justify-center">
@@ -636,7 +636,7 @@ const Hero = () => {
             animate="visible"
             variants={textVariants}
           >
-            Malaysian friendly pricing
+            Only 5 students per cohort
           </motion.p>
         </motion.div>
 

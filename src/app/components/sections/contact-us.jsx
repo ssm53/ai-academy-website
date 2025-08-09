@@ -228,7 +228,7 @@ const ContactUs = () => {
               Contact Us
             </h2>
             <p className="text-[#0F243DCC] mb-4">
-              Whatsapp our founder, Shaun to get the fastest replies.
+              Hey, Shaun here. Best to contact me on Whatsapp
             </p>
             <div className="space-y-4">
               <div className="flex items-center">
@@ -257,7 +257,7 @@ const ContactUs = () => {
               </div>
             </div>
           </div>
-          <div className="flex space-x-3 mt-4">
+          {/* <div className="flex space-x-3 mt-4">
             <a
               href="https://www.linkedin.com/in/shaun-shanil-menezes/"
               className="text-gray-600 hover:text-primary"
@@ -290,7 +290,7 @@ const ContactUs = () => {
             >
               <FaYoutube className="text-xl" />
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

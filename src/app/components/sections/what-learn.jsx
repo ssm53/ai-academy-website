@@ -9,9 +9,9 @@ const WhatLearn = () => {
           What You will Learn In
         </h2>
         <h3 className="text-4xl font-bold text-secondary">This Course?</h3>
-        <p className="text-[#0F243DCC] mt-4">
+        {/* <p className="text-[#0F243DCC] mt-4">
           Learn the tech-stack by used by most companies
-        </p>
+        </p> */}
 
         {/* Apply Now Button */}
         {/* <div className="flex text-center mt-4">
@@ -29,13 +29,10 @@ const WhatLearn = () => {
             Technical Skills
           </h4>
           <ul className="list-disc list-inside text-[#0F243DCC] space-y-2">
-            <li>Fundamentals (HTML, CSS, Javascript)</li>
-            <li>Frontend (NextJS, RESTful API&lsquo;s, SvelteKit)</li>
-            <li>
-              Backend (NodeJS, RESTful API&lsquo;s Express, Prisma, AWS, SQL,
-              Docker, Langchain)
-            </li>
-            <li>Design (TailwindCSS, DaisyUI, v0, shadcn-ui)</li>
+            <li>Automation Tools (N8N, OpenAI, Perplexity)</li>
+            <li>APIs</li>
+            <li>Databases (Google Sheets API & AirTable)</li>
+            <li>Live Deployment</li>
           </ul>
         </div>
 
@@ -45,10 +42,10 @@ const WhatLearn = () => {
             Course Breakdown
           </h4>
           <ul className="list-disc list-inside text-[#0F243DCC] space-y-2">
-            <li>Weeks 1-4: Fundamentals</li>
-            <li>Weeks 5-8: Frontend</li>
-            <li>Weeks 9-12: Backend</li>
-            <li>Weeks 13-16: Self-paced</li>
+            <li>Weeks 1: Fundamentals</li>
+            <li>Weeks 2: Project 1</li>
+            <li>Weeks 3: Project 2</li>
+            <li>Weeks 4: Project 3</li>
           </ul>
         </div>
       </div>
@@ -63,13 +60,15 @@ const WhatLearn = () => {
         </h3>
         <p className="max-w-3xl text-center lg:text-start text-lg">
           <strong>
-            Proven Motivation to Learn <br />
+            1. Proven Motivation to Learn AI <br />
           </strong>{" "}
-          There is only one requirement, but we take this very seriously.
+           <strong>
+            2. Complete beginners are welcomed <br />
+          </strong>
         </p>
-        <p className="max-w-3xl text-center lg:text-start text-lg">
+        {/* <p className="max-w-3xl text-center lg:text-start text-lg">
           Complete beginners are welcome
-        </p>
+        </p> */}
       </div>
     </section>
   );

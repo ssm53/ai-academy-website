@@ -31,15 +31,15 @@ export default function Home() {
       <BootcampSection />
       <OurFounder />
       <OurCohorts />
-      <InfoSection />
-      <SixHundred />
-      <WhyChoose />
+      {/* <InfoSection /> */}
+      {/* <SixHundred /> */}
+      {/* <WhyChoose /> */}
       <TeachingMethod />
       <HandsOnLearning />
       <WhatLearn />
       <GetStarted />
-      <PricingTable />
-      <CurriculumTable />
+      {/* <PricingTable /> */}
+      {/* <CurriculumTable /> */}
       <ContactUs />
       <Pricing />
       {/* <Testimonials /> */}

@@ -145,10 +145,10 @@ const OurCohorts = () => {
             Our Next Cohort
           </span>
           <h3 className="text-sm sm:text-xl font-semibold text-[#0D2138] leading-tight">
-            4th November 2024
+            22nd September 2025
           </h3>
           <p className="text-red-600 mt-2 text-xs sm:text-base font-bold uppercase">
-            ONLY 4 SPOTS LEFT
+            ONLY 5 SPOTS 
           </p>
         </motion.div>
 
@@ -158,19 +158,20 @@ const OurCohorts = () => {
             Class Hours
           </h2>
           <div className="mt-6">
-            <h4 className="text-xl font-semibold text-[#0D2138] mb-4">
+            {/* <h4 className="text-xl font-semibold text-[#0D2138] mb-4">
               Fixed Schedule
-            </h4>
+            </h4> */}
             <p className="text-gray-600 text-base sm:text-lg">
-              Classes are held from Monday to Friday, <br />
-              10am - 5pm AND 7pm - 10pm.
+              Monday to Thursday,
+              730pm - 10pm. <br/><br/>
+              Location: Remote
             </p>
-            <h4 className="text-xl font-semibold text-[#0D2138] mt-6 mb-4">
+            {/* <h4 className="text-xl font-semibold text-[#0D2138] mt-6 mb-4">
               Flexible Schedule
             </h4>
             <p className="text-gray-600 text-base sm:text-lg">
               The flexible schedule allows you to choose your own hours.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

@@ -46,15 +46,18 @@ const TeachingMethod = () => {
             animate={firstSectionInView ? "visible" : "hidden"}
           >
             <h2 className="text-2xl sm:text-4xl font-bold text-primary">
-              The Zez Method
+              Projects You Will Build
+            </h2>
+            <h2 className="text-2xl sm:text-4xl font-bold text-primary">
+              AI Sales Employee
             </h2>
             <p className="text-[16px] text-gray-600">
-              We help you when you get stuck and we get you building apps fast.
+              Build an AI system that can replace a sales development represntative
             </p>
             <ul className="list-disc ml-6 space-y-2 text-[16px] text-gray-600">
-              <li>80% practical, 20% theory.</li>
-              <li>We dive deep into building projects very fast.</li>
-              <li>Personalised help when you get stuck (you will get stuck)</li>
+              <li>Automatically scrapes Linkedin & Google Maps</li>
+              <li>Analyses information of each client</li>
+              <li>Sends PERSONALISED email / Linkedin message to client</li>
             </ul>
           </motion.div>
 
@@ -66,7 +69,7 @@ const TeachingMethod = () => {
             animate={firstSectionInView ? "visible" : "hidden"}
           >
             <Image
-              src="/teaching.svg"
+              src="/outreach2.png"
               alt="Teaching Method"
               width={450}
               height={300}
@@ -88,7 +91,7 @@ const TeachingMethod = () => {
             animate={secondSectionInView ? "visible" : "hidden"}
           >
             <Image
-              src="/meeting.svg"
+              src="/CustomGPT.png"
               alt="Career Support"
               width={450}
               height={300}
@@ -104,24 +107,68 @@ const TeachingMethod = () => {
             animate={secondSectionInView ? "visible" : "hidden"}
           >
             <h2 className="text-2xl sm:text-4xl font-bold text-primary">
-              Career Support
+              Smart AI Chatbot
             </h2>
             <p className="text-[16px] text-gray-600">
-              Upon graduation, you will get:
+              
             </p>
             <ul className="flex gap-[2rem] list-disc ml-6 space-y-2 text-[16px] text-gray-600">
               <div>
-                <li>Graduation certificate</li>
-                <li>Resume templates</li>
-                <li>Cover letter templates</li>
-                <li>Portfolio templates</li>
+                <li>Human-like answers</li>
+                <li>Answers based on knowledge given</li>
+                <li>Can actually do stuff e.g. send emails, set Google Calendar event</li>
               </div>
-              <div>
+              {/* <div>
                 <li>A great recommendation letter</li>
                 <li>Real-life interview practice</li>
                 <li>Step by step process of getting a job FAST.</li>
-              </div>
+              </div> */}
             </ul>
+          </motion.div>
+        </div>
+
+        {/* 3rd section */}
+         <div
+          ref={firstSectionRef}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-between"
+        >
+          {/* Left Section - Our Teaching Method */}
+          <motion.div
+            className="space-y-6"
+            variants={rightToLeftVariant}
+            initial="hidden"
+            animate={firstSectionInView ? "visible" : "hidden"}
+          >
+            {/* <h2 className="text-2xl sm:text-4xl font-bold text-primary">
+              Projects You Will Build
+            </h2> */}
+            <h2 className="text-2xl sm:text-4xl font-bold text-primary">
+              Automated Blog Writer
+            </h2>
+            <p className="text-[16px] text-gray-600">
+              Build an AI system that can replace a SEO marketer
+            </p>
+            <ul className="list-disc ml-6 space-y-2 text-[16px] text-gray-600">
+              <li>Researches blog topics based on company</li>
+              <li>Researches credible resources for information</li>
+              <li>Craft and post SEO friendly blog posts</li>
+            </ul>
+          </motion.div>
+
+          {/* Right Section - Image */}
+          <motion.div
+            className="flex justify-center md:justify-end"
+            variants={leftToRightVariant}
+            initial="hidden"
+            animate={firstSectionInView ? "visible" : "hidden"}
+          >
+            <Image
+              src="/seo.png"
+              alt="Teaching Method"
+              width={450}
+              height={300}
+              className="w-[450px] h-auto object-cover rounded-[15px]"
+            />
           </motion.div>
         </div>
 
