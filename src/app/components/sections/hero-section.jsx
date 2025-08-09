@@ -612,7 +612,7 @@ const Hero = () => {
             animate="visible"
             variants={textVariants}
           >
-            4 Live Remote Classes a Week
+            Live Remote Classes Mon - Thurs
           </motion.p>
         </motion.div>
         <motion.div className="flex items-center mt-6 justify-center">
@@ -636,11 +636,11 @@ const Hero = () => {
             animate="visible"
             variants={textVariants}
           >
-            Only 5 students per cohort
+            5 students per cohort
           </motion.p>
         </motion.div>
 
-        <motion.div className="flex items-center mt-6 justify-center">
+        {/* <motion.div className="flex items-center mt-6 justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-green-500 flex-shrink-0"
@@ -663,7 +663,7 @@ const Hero = () => {
           >
             Career support after graduation
           </motion.p>
-        </motion.div>
+        </motion.div> */}
 
         <motion.div
           className="mt-6 flex justify-center space-x-4"
