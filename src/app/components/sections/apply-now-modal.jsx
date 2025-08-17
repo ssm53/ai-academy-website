@@ -62,7 +62,6 @@ export default function ApplyNowModal({ open, onClose }) {
       });
 
       if (!res.ok) throw new Error("Network response was not ok");
-      // Show success screen in the same modal
       setStatus("success");
     } catch (err) {
       console.error(err);
@@ -101,7 +100,13 @@ export default function ApplyNowModal({ open, onClose }) {
             {/* CONTENT: form or success */}
             {status !== "success" ? (
               <>
-                <h2 className="text-2xl font-bold mb-4">Apply Now</h2>
+                {/* Centered header */}
+                <div className="text-center mb-4">
+                  <p className="text-[12px] sm:text-sm tracking-wide text-blue-700/80 font-semibold uppercase">
+                    Zez Academy’s AI Automation Live Course
+                  </p>
+                  <h2 className="text-2xl sm:text-3xl font-bold mt-1">Apply Now</h2>
+                </div>
 
                 <form onSubmit={onSubmit} className="space-y-3">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -135,7 +140,7 @@ export default function ApplyNowModal({ open, onClose }) {
 
                   <input
                     name="whatsapp"
-                    placeholder="WhatsApp"
+                    placeholder="WhatsApp *"
                     className="w-full p-3 border rounded-lg"
                     value={form.whatsapp}
                     onChange={onChange}

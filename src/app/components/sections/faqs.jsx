@@ -8,18 +8,13 @@ const faqs = [
     answer: "You really dont. Our programme is catered for complete beginners. ",
   },
   {
-    question: "Is there live classes?",
+    question: "Are there live classes?",
     answer: "Yes. Mon-Thurs, 730pm - 10pm",
   },
   {
     question: "How long will this take?",
     answer:
       "1-2 months.",
-  },
-  {
-    question: "What do I graduate with?",
-    answer:
-      "You will graduate with a portfolio website, which you can show to universities and recruiters.",
   },
   {
     question: "How many students per cohort?",
@@ -37,7 +32,7 @@ export default function FaqAccordian() {
 
   return (
     <div id="faqs" className="bg-[#F7F8F9]">
-      <section className=" max-w-[1300px] mx-auto px-6 md:px-16 lg:px-32 py-16">
+      <section className=" max-w-[1300px] mx-auto px-6 md:px-16 lg:px-32 py-16" id="faqs">
         <h2 className="text-4xl font-bold text-center mb-6 text-primary">
           Frequently Asked Questions
         </h2>

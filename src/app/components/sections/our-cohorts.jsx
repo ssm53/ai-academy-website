@@ -129,7 +129,7 @@ const OurCohorts = () => {
 
   return (
     <section
-      id="our-classes"
+      id="class-details"
       className="bg-[#F7F8F9] max-w-1300px mx-auto py-16 px-4 lg:px-0"
       ref={sectionRef}
     >
@@ -145,7 +145,7 @@ const OurCohorts = () => {
             Our Next Cohort
           </span>
           <h3 className="text-sm sm:text-xl font-semibold text-[#0D2138] leading-tight">
-            22nd September 2025
+            6th October 2025
           </h3>
           <p className="text-red-600 mt-2 text-xs sm:text-base font-bold uppercase">
             ONLY 5 SPOTS 

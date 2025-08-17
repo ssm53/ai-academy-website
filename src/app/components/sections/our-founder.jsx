@@ -252,20 +252,20 @@ const OurFounder = () => {
             <span className="font-bold">Zez Academy</span>
           </p>
           <p className="mb-4 text-[#E9EAEB]">
-            I was an auditor at Deloitte, UK before learning tech and building AI systems{" "}
+            I was not a tech guy at all. I was an auditor at Deloitte, UK before learning tech and building software{" "}
           </p>
           <ul className="mb-4 text-[#E9EAEB] list-disc pl-5">
             <li>Co-founded a 7-figure crypto startup</li>
-            <li>Currently building AI automations for a VC backed Singapore start-up</li>
+            <li>Currently building AI automations for a VC-backed Singaporen start-up</li>
             <li>
-              Built tech products for 40+ clients
+              Built & sold software to 40+ clinics
             </li>
           </ul>
           <p className="mb-4 text-[#E9EAEB] underline font-bold text-lg">
             My Aim For You
           </p>
           <p className="mb-4 text-[#E9EAEB]">
-            Actually learn and build AI systems that can impress people and make you stand out. This is done through live classes as learning solo is very difficult.
+            Actually learn and build AI systems that work. Impress universities/recruiters or start your entrepreneurial journey This is done through live classes as learning solo is very difficult.
           </p>
           {/* {showFullText ? (
             <>

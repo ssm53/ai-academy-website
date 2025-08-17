@@ -32,7 +32,7 @@ const thirdSectionInView = useInView(thirdSectionRef, { triggerOnce: false });
 
   return (
     <section
-      id="our-teaching-methods"
+      id="projects-you-build"
       className="bg-white max-w-[1300px] mx-auto py-16 px-4 lg:px-0"
     >
       <div className="max-w-[1300px] mx-auto">
@@ -48,19 +48,19 @@ const thirdSectionInView = useInView(thirdSectionRef, { triggerOnce: false });
             initial="hidden"
             animate={firstSectionInView ? "visible" : "hidden"}
           >
-            <h2 className="text-2xl sm:text-4xl font-bold text-primary">
+            <h2 className="text-2xl sm:text-4xl font-bold text-secondary">
               Projects You Will Build
             </h2>
             <h2 className="text-2xl sm:text-4xl font-bold text-primary">
               AI Sales Employee
             </h2>
             <p className="text-[16px] text-gray-600">
-              Build an AI system that can replace a sales development represntative
+             Learn to build an AI system that works like a junior sales rep — researching leads, crafting messages, and reaching out automatically.
             </p>
             <ul className="list-disc ml-6 space-y-2 text-[16px] text-gray-600">
-              <li>Automatically scrapes Linkedin & Google Maps</li>
-              <li>Analyses information of each client</li>
-              <li>Sends PERSONALISED email / Linkedin message to client</li>
+              <li>Scans LinkedIn & Google Maps to find potential clients</li>
+              <li>Profiles each lead to understand their needs</li>
+              <li>Sends tailored emails or LinkedIn messages that sound human</li>
             </ul>
           </motion.div>
 
@@ -113,13 +113,13 @@ const thirdSectionInView = useInView(thirdSectionRef, { triggerOnce: false });
               Smart AI Chatbot
             </h2>
             <p className="text-[16px] text-gray-600">
-              
+              Go beyond “basic bots” and create a chatbot that not only answers questions but also takes real action.
             </p>
             <ul className="flex gap-[2rem] list-disc ml-6 space-y-2 text-[16px] text-gray-600">
               <div>
-                <li>Human-like answers</li>
-                <li>Answers based on knowledge given</li>
-                <li>Can actually do stuff e.g. send emails, set Google Calendar event</li>
+                <li>Responds naturally, like a real human assistant</li>
+                <li>Gives accurate answers based only on the knowledge you provide</li>
+                <li>Can perform tasks: send emails, schedule calendar events, and more</li>
               </div>
               {/* <div>
                 <li>A great recommendation letter</li>
@@ -147,15 +147,15 @@ const thirdSectionInView = useInView(thirdSectionRef, { triggerOnce: false });
               Projects You Will Build
             </h2> */}
             <h2 className="text-2xl sm:text-4xl font-bold text-primary">
-              Automated Blog Writer
+              Automated Blog Writer — Content That Works While You Sleep
             </h2>
             <p className="text-[16px] text-gray-600">
-              Build an AI system that can replace a SEO marketer
+             Build an AI system that takes over the role of an SEO content marketer, consistently generating fresh traffic for a business.
             </p>
             <ul className="list-disc ml-6 space-y-2 text-[16px] text-gray-600">
-              <li>Researches blog topics based on company</li>
-              <li>Researches credible resources for information</li>
-              <li>Craft and post SEO friendly blog posts</li>
+              <li>Researches trending blog topics tailored to your company</li>
+              <li>Pulls insights from credible sources automatically</li>
+              <li>Writes and posts SEO-friendly blog articles</li>
             </ul>
           </motion.div>
 

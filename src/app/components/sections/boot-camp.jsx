@@ -33,11 +33,12 @@ export default function BootcampSection() {
   return (
     <section
       className="max-w-[1300px] mx-auto py-16 px-4 lg:px-0"
+      
       ref={sectionRef}
     >
       <div className="text-start mb-8">
         <h2 className="leading-[30px] sm:leading-[50px] text-[20px] sm:text-[48px] font-bold text-primary">
-          Who Is This <br className="hidden sm:block" />
+          Who Is This {""}
           <span className="text-secondary">For?</span>
         </h2>
 
@@ -52,19 +53,19 @@ export default function BootcampSection() {
         </p> */}
         <ul className="mt-4 space-y-2 text-gray-600 list-disc pl-4">
           <li className="text-base sm:text-lg leading-relaxed">
-            dont know how to code (or beginner)
+            complete beginner in tech
           </li>
           <li className="text-base sm:text-lg leading-relaxed">
             in college/university
           </li>
             <li className="text-base sm:text-lg leading-relaxed">
-            willing to commit minimum 8 hours a week for 1-2 months
+            willing to commit a minimum of 8 hours/week 
           </li>
         </ul>
       </div>
       <h2 className="leading-[30px] sm:leading-[50px] text-[20px] sm:text-[48px] font-bold text-primary">
-        What Can You Do <br className="hidden sm:block" />
-        <span className="text-secondary">After?</span>
+        What Do You <br className="hidden sm:block" />
+        <span className="text-secondary">Get?</span>
       </h2>
 
       {/* Animated Cards Section */}

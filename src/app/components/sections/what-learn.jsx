@@ -2,7 +2,8 @@ import React from "react";
 
 const WhatLearn = () => {
   return (
-    <section className="max-w-[1300px] mx-auto py-16 px-4 lg:px-0">
+    <section className="max-w-[1300px] mx-auto py-16 px-4 lg:px-0"
+    id="technical-skills-learnt">
       {/* Heading Section */}
       <div className="text-start mb-8">
         <h2 className="text-4xl font-bold text-primary">
@@ -55,7 +56,21 @@ const WhatLearn = () => {
         className="px-6 mt-6 bg-secondary text-white py-8 rounded-2xl"
         id="admission-requirements"
       >
-        <h3 className="sm:text-4xl text-2xl font-semibold mb-4 text-center lg:text-start">
+         <h3 className="sm:text-4xl text-2xl font-semibold mb-4 text-center lg:text-start">
+    Admission Requirements
+  </h3>
+  <p className="max-w-3xl text-center lg:text-start text-lg leading-relaxed">
+    <strong>1. A strong drive to learn and apply AI</strong> <br />
+    <span className="opacity-90">
+      We’re looking for students who are curious, committed, and ready to put in the work.
+    </span>
+    <br /><br />
+    <strong>2. No prior experience required</strong> <br />
+    <span className="opacity-90">
+      Whether you’re a complete beginner or have some background, we’ll guide you step by step.
+    </span>
+  </p>
+        {/* <h3 className="sm:text-4xl text-2xl font-semibold mb-4 text-center lg:text-start">
           Admission Requirements
         </h3>
         <p className="max-w-3xl text-center lg:text-start text-lg">
@@ -65,7 +80,7 @@ const WhatLearn = () => {
            <strong>
             2. Complete beginners are welcomed <br />
           </strong>
-        </p>
+        </p> */}
         {/* <p className="max-w-3xl text-center lg:text-start text-lg">
           Complete beginners are welcome
         </p> */}

@@ -17,7 +17,7 @@ const GetStarted = () => {
   };
 
   return (
-    <section id="how-to-get-started" className="bg-[#F7F8F9]">
+    <section id="application-process" className="bg-[#F7F8F9]">
       <div className="max-w-[1300px] mx-auto py-16 px-4 lg:px-0">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="text-center md:text-left">

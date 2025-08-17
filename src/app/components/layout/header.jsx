@@ -125,15 +125,13 @@ const Header = () => {
                 >
                   {[
                     "Home",
-                    "Our Founder",
-                    "Our Classes",
+                    "Class Details",
+                    "Projects You Build",
+                    "Technical Skills Learnt",
+                    
+                    "Application Process",
                     "Contact Us",
-                    "Zez Academy vs University",
-                    "Fixed vs Flexible Option",
-                    "Why Us",
-                    "Admission Requirements",
-                    "How to Get Started",
-                    "Pricing",
+                    "Tuition Fees",
                     "FAQs",
                   ].map((link, index) => (
                     <li key={index} className="border-b border-gray-200 pb-3">
